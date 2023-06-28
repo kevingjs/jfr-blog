@@ -92,6 +92,15 @@ p {
 	background: var(--yellow);
 }
 
+.ql-editor *:not(a) {
+    user-select: text;
+}
+
+.ql-editor a {
+	font-weight: 500;
+	color: var(--blue);
+}
+
 /* === #ROOT, HTML, BODY === */
 
 #root {

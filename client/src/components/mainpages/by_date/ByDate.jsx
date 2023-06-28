@@ -10,16 +10,16 @@ const ByDate = () => {
 	const { news: newsTools } = newsAPI;
 	const [ news ] = newsTools;
 
-	const [ mm, dd, yyyy ] = new Date().toLocaleDateString().replace(/\//g, '-').split('-');
+	const [ mm, dd, yyyy ] = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).split('/');
 
 	const [ dateRange, setDateRange ] = useState({
-		since: new Date(new Date(`${yyyy}-${mm < 10 ? `0${mm}` : mm}-${dd}T00:00`).getTime() - 31 * 24 * 60 * 60 * 1000).getTime(),
-		until: new Date(`${yyyy}-${mm < 10 ? `0${mm}` : mm}-${dd}T23:59`).getTime()
+		since: new Date(new Date(`${yyyy}-${mm}-${dd}T00:00`).getTime() - 31 * 24 * 60 * 60 * 1000).getTime(),
+		until: new Date(`${yyyy}-${mm}-${dd}T23:59`).getTime()
 	});
 
 	const [ inputValues, setInputValues ] = useState({
-		since: `${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[2]}-${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[0] < 10 ? `0${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[0]}` : new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[0]}-${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[1]}`,
-		until: `${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[2]}-${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[0] < 10 ? `0${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[0]}` : new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[0]}-${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[1]}`
+		since: new Date(dateRange.since).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', year: 'numeric' }).replace(/. /g, '-').replace('.', ''),
+		until: new Date(dateRange.until).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', year: 'numeric' }).replace(/. /g, '-').replace('.', '')
 	});
 
 	const handleSince = e => {
@@ -50,7 +50,7 @@ const ByDate = () => {
 		const prodDate = new Date(post.createdAt).getTime();
 		const { since, until } = dateRange;
 		return prodDate >= since && prodDate <= until;
-	}).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+	});
 
 	return (
 		<div className='posts__container byDate'>

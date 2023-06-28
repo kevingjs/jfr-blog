@@ -3,7 +3,7 @@ const News = require("../models/newsModel");
 const newsCtrl = {
 	getNews: async (req, res) => {
 		try {
-			const news = await News.find().select("-by -updatedAt -__v");
+			const news = await News.find().select("-by -updatedAt -__v").sort({ createdAt: -1 });
 
 			if (news.length < 1) return res.json({
 				status: 400,

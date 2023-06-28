@@ -3,7 +3,7 @@ const Pic = require('../models/picModel');
 const picsCtrl = {
 	getPics: async (req, res) => {
 		try {
-			const pics = await Pic.find().select('url');
+			const pics = await Pic.find().select('url').sort({ createdAt: -1 });
 
 			if (pics.length < 1) {
 				const error = {

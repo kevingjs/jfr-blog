@@ -9,8 +9,6 @@ import { Link, useNavigate } from 'react-router-dom';
 const Latest = ({ news, arrow }) => {
 	const navigate = useNavigate();
 
-	const latestPost = news.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-
 	return (
 		<div className='postModules__container latest'>
 
@@ -22,7 +20,7 @@ const Latest = ({ news, arrow }) => {
 
 			<div className="postModules__container--center">
 				{
-					latestPost.slice(0, 3).map(post =>
+					news.slice(0, 3).map(post =>
 						<div 
 							key={post._id}
 							className='post__card'
@@ -45,7 +43,7 @@ const Latest = ({ news, arrow }) => {
 			</div>
 
 			{
-				latestPost.length > 3 ?
+				news.length > 3 ?
 					<div className='postModules__container--bottom'>
 						<Link to='/latest'>
 							<span>Ver más</span>
@@ -79,7 +77,7 @@ const ByCategory = ({ news, arrow, sortDown }) => {
 		setSelected(category);
 	};
 
-	const filterByCategory = news.filter(post => post.category === selected).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+	const filterByCategory = news.filter(post => post.category === selected);
 
 	return (
 		<div className='postModules__container category'>
@@ -148,16 +146,16 @@ const ByCategory = ({ news, arrow, sortDown }) => {
 const ByDate = ({ news, arrow }) => {
 	const navigate = useNavigate();
 
-	const [ mm, dd, yyyy ] = new Date().toLocaleDateString().replace(/\//g, '-').split('-');
+	const [ mm, dd, yyyy ] = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).split('/');
 
 	const [ dateRange, setDateRange ] = useState({
-		since: new Date(new Date(`${yyyy}-${mm < 10 ? `0${mm}` : mm}-${dd}T00:00`).getTime() - 31 * 24 * 60 * 60 * 1000).getTime(),
-		until: new Date(`${yyyy}-${mm < 10 ? `0${mm}` : mm}-${dd}T23:59`).getTime()
+		since: new Date(new Date(`${yyyy}-${mm}-${dd}T00:00`).getTime() - 31 * 24 * 60 * 60 * 1000).getTime(),
+		until: new Date(`${yyyy}-${mm}-${dd}T23:59`).getTime()
 	});
 
 	const [ inputValues, setInputValues ] = useState({
-		since: `${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[2]}-${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[0] < 10 ? `0${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[0]}` : new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[0]}-${new Date(dateRange.since).toLocaleDateString().replace(/\//g, '-').split('-')[1]}`,
-		until: `${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[2]}-${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[0] < 10 ? `0${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[0]}` : new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[0]}-${new Date(dateRange.until).toLocaleDateString().replace(/\//g, '-').split('-')[1]}`
+		since: new Date(dateRange.since).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', year: 'numeric' }).replace(/. /g, '-').replace('.', ''),
+		until: new Date(dateRange.until).toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit', year: 'numeric' }).replace(/. /g, '-').replace('.', '')
 	});
 
 	const handleSince = e => {
@@ -188,7 +186,7 @@ const ByDate = ({ news, arrow }) => {
 		const prodDate = new Date(post.createdAt).getTime();
 		const { since, until } = dateRange;
 		return prodDate >= since && prodDate <= until;
-	}).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+	});
 
 	return (
 		<div className='postModules__container date'>

@@ -10,8 +10,6 @@ const Latest = () => {
 	const { news: newsTools } = newsAPI;
 	const [ news ] = newsTools;
 
-	const latestPost = news.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-
 	return (
 		<div className='posts__container latest'>
 			
@@ -20,10 +18,10 @@ const Latest = () => {
 			</div>
 
 			{
-				latestPost.length > 0 ?
+				news.length > 0 ?
 					<div className="posts__container--content">
 						{
-							latestPost.map(post =>
+							news.map(post =>
 								<div
 									key={post._id}
 									className='post__card'

@@ -30,7 +30,7 @@ const ByCategory = () => {
 		setSelected(category);
 	};
 
-	const filterByCategory = news.filter(post => post.category === selected).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+	const filterByCategory = news.filter(post => post.category === selected);
 
 	const sortDown = <FontAwesomeIcon icon = { icon({ name: 'sort-down', style: 'solid' }) } viewBox="0 280 320 205"/>;
 

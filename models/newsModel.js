@@ -27,6 +27,9 @@ const newsSchema = new Schema({
 		type: Object,
 		required: true
 	},
+	code: {
+		type: String
+	},
 	featured: {
 		type: Boolean,
 		default: false
@@ -36,7 +39,7 @@ const newsSchema = new Schema({
 });
 
 function autoPopulate(next) {
-	this.populate({ path: 'image', select: 'url' });
+	this.populate({ path: 'image', select: 'public_id url' });
 	next();
 };
 
