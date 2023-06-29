@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import FeaturedPost from '../utils/featured_post/FeaturedPost';
 import { GlobalState } from '../../../GlobalState';
 import Loading from '../utils/loading/Loading';
@@ -258,7 +258,11 @@ const Home = () => {
 	const state = useContext(GlobalState);
 	const { newsAPI } = state;
 	const { news: newsTools } = newsAPI;
-	const [ news ] = newsTools;
+	const [ news, setNews, getNews ] = newsTools;
+
+	useEffect(() => {
+		getNews();
+	}, []);
 
 	const arrowRightLong = <FontAwesomeIcon icon = { icon({ name: 'arrow-right-long', style: 'solid' }) } />;
 	const sortDown = <FontAwesomeIcon icon = { icon({ name: 'sort-down', style: 'solid' }) } viewBox="0 280 320 205"/>;

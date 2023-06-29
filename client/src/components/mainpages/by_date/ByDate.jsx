@@ -1,14 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalState } from '../../../GlobalState';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../utils/loading/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const ByDate = () => {
 	const navigate = useNavigate();
 	const state = useContext(GlobalState);
 	const { newsAPI } = state;
 	const { news: newsTools } = newsAPI;
-	const [ news ] = newsTools;
+	const [ news, setNews, getNews ] = newsTools;
+	const [ itemLimit, setItemLimit ] = useState(8);
+
+	const showMore = () => setItemLimit(value => value + (value + 8 > news.length ? news.length - value : 8));
+
+	useEffect(() => {
+		getNews();
+	}, []);
 
 	const [ mm, dd, yyyy ] = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).split('/');
 
@@ -76,7 +85,7 @@ const ByDate = () => {
 					<div className="posts__container--content">
 						{
 							filterByDate.length > 0 ?
-								filterByDate.map(post =>
+								filterByDate.slice(0, itemLimit).map(post =>
 									<div
 										key={post._id}
 										className='post__card'
@@ -98,6 +107,16 @@ const ByDate = () => {
 								)
 							:
 								<div className='posts__container--NotFound'>No se han encontrado publicaciones en este rango de fecha</div>
+						}
+						{
+							filterByDate.length > itemLimit ?
+								<div className='showMore__container'>
+									<div className='showMore' onClick={showMore}>
+										<FontAwesomeIcon icon={icon({ name: 'chevron-down', style: 'solid' })} />
+									</div>
+								</div>
+							:
+								null
 						}
 					</div>
 					:

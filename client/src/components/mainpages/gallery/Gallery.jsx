@@ -1,6 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalState } from '../../../GlobalState';
 import Loading from '../utils/loading/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const ImageModal = ({ image, close }) => {
 	return (
@@ -13,12 +15,19 @@ const ImageModal = ({ image, close }) => {
 };
 
 const Gallery = () => {
+	const [ itemLimit, setItemLimit ] = useState(6);
 	const [ modal, setModal ] = useState(false);
 	const state = useContext(GlobalState);
 	const { picsAPI } = state;
 	const { pics: picsTools } = picsAPI;
-	const [ pics ] = picsTools;
+	const [ pics, setPics, getPics ] = picsTools;
 	// const [ pics ] = [[]]; // test Loading state
+
+	const showMore = () => setItemLimit(value => value + (value + 6 > pics.length ? pics.length - value : 6));
+
+	useEffect(() => {
+		getPics();
+	}, []);
 
 	return (
 		<>
@@ -34,11 +43,21 @@ const Gallery = () => {
 				:
 					<div className='gallery__container'>
 						{
-							pics.map(pic =>
+							pics.slice(0, itemLimit).map(pic =>
 								<div key={pic._id} className='pics__card' onClick={() => setModal(pic)}>
 									<img src={pic.url} alt="" draggable={false} onContextMenu={e => e.preventDefault()} loading='lazy' />
 								</div>
 							)
+						}
+						{
+							pics.length > itemLimit ?
+								<div className="overlay__fade">
+									<div className='showMore' onClick={showMore}>
+										<FontAwesomeIcon icon={icon({ name: 'chevron-down', style: 'solid' })} />
+									</div>
+								</div>
+							:
+								null
 						}
 					</div>
 			}

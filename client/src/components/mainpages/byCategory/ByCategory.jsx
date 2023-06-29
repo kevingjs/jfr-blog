@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -10,7 +10,14 @@ const ByCategory = () => {
 	const state = useContext(GlobalState);
 	const { newsAPI } = state;
 	const { news: newsTools } = newsAPI;
-	const [ news ] = newsTools;
+	const [ news, setNews, getNews ] = newsTools;
+	const [ itemLimit, setItemLimit ] = useState(8);
+
+	const showMore = () => setItemLimit(value => value + (value + 8 > news.length ? news.length - value : 8));
+
+	useEffect(() => {
+		getNews();
+	}, []);
 
 	const [ openCategory, setOpenCategory ] = useState(false);
 	const [ selected, setSelected ] = useState('Educativo');
@@ -60,7 +67,7 @@ const ByCategory = () => {
 					<div className="posts__container--content">
 						{
 							filterByCategory.length > 0 ?
-								filterByCategory.map(post =>
+								filterByCategory.slice(0, itemLimit).map(post =>
 									<div
 										key={post._id}
 										className='post__card'
@@ -82,6 +89,16 @@ const ByCategory = () => {
 								)
 							:
 								<div className="posts__container--NotFound">No se han encontrado publicaciones con esta categoría</div>
+						}
+						{
+							filterByCategory.length > itemLimit ?
+								<div className='showMore__container'>
+									<div className='showMore' onClick={showMore}>
+										<FontAwesomeIcon icon={icon({ name: 'chevron-down', style: 'solid' })} />
+									</div>
+								</div>
+							:
+								null
 						}
 					</div>
 					:

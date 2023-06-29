@@ -15,7 +15,11 @@ const PostDetails = () => {
 	const state = useContext(GlobalState);
 	const { newsAPI } = state;
 	const { news: newsTools } = newsAPI;
-	const [ news ] = newsTools;
+	const [ news, setNews, getNews ] = newsTools;
+
+	useEffect(() => {
+		getNews();
+	}, []);
 
 	useEffect(() => {
 		if (news.length && !Object.keys(localState).length && params) {

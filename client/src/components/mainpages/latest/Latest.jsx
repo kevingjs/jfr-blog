@@ -1,14 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalState } from '../../../GlobalState';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../utils/loading/Loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const Latest = () => {
 	const navigate = useNavigate();
 	const state = useContext(GlobalState);
 	const { newsAPI } = state;
 	const { news: newsTools } = newsAPI;
-	const [ news ] = newsTools;
+	const [ news, setNews, getNews ] = newsTools;
+	const [ itemLimit, setItemLimit ] = useState(8);
+
+	const showMore = () => setItemLimit(value => value + (value + 8 > news.length ? news.length - value : 8));
+
+	useEffect(() => {
+		getNews();
+	}, []);
 
 	return (
 		<div className='posts__container latest'>
@@ -21,7 +30,7 @@ const Latest = () => {
 				news.length > 0 ?
 					<div className="posts__container--content">
 						{
-							news.map(post =>
+							news.slice(0, itemLimit).map(post =>
 								<div
 									key={post._id}
 									className='post__card'
@@ -41,6 +50,16 @@ const Latest = () => {
 									</div>
 								</div>
 							)
+						}
+						{
+							news.length > itemLimit ?
+								<div className='showMore__container'>
+									<div className='showMore' onClick={showMore}>
+										<FontAwesomeIcon icon={icon({ name: 'chevron-down', style: 'solid' })} />
+									</div>
+								</div>
+							:
+								null
 						}
 					</div>
 				:
