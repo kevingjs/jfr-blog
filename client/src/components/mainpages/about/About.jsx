@@ -8,7 +8,7 @@ const About = () => {
 
 				<div className="purpose__info">
 					<h2 className="purpose__info--title">Propósito</h2>
-					<p className="purpose__info--description">Nuestro propósito en la Unidad Educativa Nacional "José Félix Rivas" es ofrecer una educación integral y de calidad, orientada hacia el desarrollo pleno de cada estudiante.</p>
+					<p className="purpose__info--description">Nuestro propósito en el Grupo Escolar "José Félix Rivas" es ofrecer una educación integral y de calidad, orientada hacia el desarrollo pleno de cada estudiante.</p>
 				</div>
 
 				<div className="purpose__img">

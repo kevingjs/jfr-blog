@@ -33,17 +33,17 @@ const Footer = () => {
 	const socials = [
 		{
 			label: "Facebook",
-			url: '',
+			url: 'https://www.facebook.com/profile.php?id=100063777708388',
 			icon: <FontAwesomeIcon icon = { icon({ name: 'facebook', style: 'brands' }) } />
 		},
 		{
 			label: "Instagram",
-			url: '',
+			url: 'https://www.instagram.com/gejosefelix/',
 			icon: <FontAwesomeIcon icon = { icon({ name: 'instagram', style: 'brands' }) } />
 		},
 		{
 			label: "Twitter",
-			url: '',
+			url: 'https://twitter.com/ebjosefribas',
 			icon: <FontAwesomeIcon icon = { icon({ name: 'twitter', style: 'brands' }) } />
 		}
 	];
@@ -104,6 +104,24 @@ const Footer = () => {
 					</div>
 				</div>
 				
+			</div>
+
+			<div className='credits'>
+
+				<FontAwesomeIcon icon = { icon({ name: 'code', style: 'solid' }) } />
+
+				<span>por</span>
+
+				<Link
+					to = 'https://github.com/kevingjs'
+					target = "_blank"
+					rel = "noopener noreferrer"
+				>
+					Keving Andrades
+				</Link>
+				
+				<span>{new Date().getFullYear()}</span>
+
 			</div>
 
 		</footer>

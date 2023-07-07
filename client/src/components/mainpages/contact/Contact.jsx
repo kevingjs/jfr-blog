@@ -8,17 +8,17 @@ const Contact = () => {
 	const socials = [
 		{
 			label: "Facebook",
-			url: '',
+			url: 'https://www.facebook.com/profile.php?id=100063777708388',
 			icon: <FontAwesomeIcon icon = { icon({ name: 'facebook', style: 'brands' }) } />
 		},
 		{
 			label: "Instagram",
-			url: '',
+			url: 'https://www.instagram.com/gejosefelix/',
 			icon: <FontAwesomeIcon icon = { icon({ name: 'instagram', style: 'brands' }) } />
 		},
 		{
 			label: "Twitter",
-			url: '',
+			url: 'https://twitter.com/ebjosefribas',
 			icon: <FontAwesomeIcon icon = { icon({ name: 'twitter', style: 'brands' }) } />
 		}
 	];
@@ -52,8 +52,6 @@ const Contact = () => {
 			<div className="contact__container--map">
 				<iframe
 					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d982.5841720049915!2d-67.36494903050023!3d9.90589092049871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2aa9f6c506e8e7%3A0xb6a58a98f95736c4!2sEB.%20Jos%C3%A9%20F%C3%A9lix%20Ribas!5e0!3m2!1ses-419!2sve!4v1687768798163!5m2!1ses-419!2sve"
-					width="550"
-					height="550"
 					style={{ border: 0 }}
 					allowFullScreen=""
 					loading="eager"

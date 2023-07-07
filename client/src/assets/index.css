@@ -196,7 +196,8 @@ header {
 	top: 0;
 	width: 100%;
 	height: 5.4vw;
-	padding: 0 10.5vw;
+	/* padding: 0 10.5vw; */
+	padding: 0 4vw;
 	gap: 15vw;
 	text-wrap: nowrap;
 	background-color: var(--white);
@@ -290,7 +291,7 @@ main.home > .home__container > .featuredCard {
 	justify-content: flex-end;
 	position: relative;
 	width: 100%;
-	height: calc(95vh - var(--header-height));
+	height: calc(45vw - var(--header-height));
 	border-radius: var(--br20);
 	background-color: white;
 	box-shadow: var(--shadow-global);
@@ -1012,6 +1013,11 @@ main.contact > .contact__container > .contact__container--map {
 	overflow: hidden;
 }
 
+main.contact > .contact__container > .contact__container--map > iframe {
+	width: 40vw;
+	height: 40vw;
+}
+
 /* === POSTS PAGES === */
 
 .posts__container {
@@ -1244,8 +1250,10 @@ footer {
 	align-items: center;
 	justify-content: space-between;
 	margin-top: 5vw;
+	margin-bottom: 4vw;
 	width: 100%;
 	background-color: var(--white);
+	gap: 3vw;
 }
 
 footer > .separator {
@@ -1257,7 +1265,7 @@ footer > .footer__container {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 3vw 0;
+	/* padding: 3vw 0; */
 	width: 78%;
 }
 
@@ -1330,5 +1338,29 @@ footer > .footer__container > .footer__container--columns.right > .right__social
 }
 
 footer > .footer__container > .footer__container--columns.right > .right__socials > a:hover {
+	color: var(--blue);
+}
+
+footer > .credits {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: .5vw;
+	font-size: 1.1vw;
+}
+
+footer > .credits > span {
+	font-weight: 400;
+}
+
+footer > .credits > a {
+	font-weight: 900;
+	border-bottom: 1px solid var(--blue);
+	color: var(--dark-grey);
+	transition: border-bottom .1s, color .1s;
+}
+
+footer > .credits > a:hover {
+	border-bottom: 1px solid transparent;
 	color: var(--blue);
 }
